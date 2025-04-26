@@ -3,12 +3,63 @@
 StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title)
 {
 	window.setFramerateLimit(60);
-	system("pause");
+
+
+	clock.restart();
+
+
+	processEvents();
 }
 
 sf::RenderWindow& StartMenuBar::getWindow()
 {
 	return window;
+}
+
+void StartMenuBar::processEvents()
+{
+	setData();
+
+
+	while (window.isOpen())
+	{
+		delta_time = clock.getElapsedTime();
+		clock.restart();
+		//std::cout << delta_time.asSeconds() << std::endl;
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+
+		render();
+		update();
+	}
+}
+
+void StartMenuBar::setData()
+{
+	start_menu_background.setOrigin(window_width / 2, window_height / 2);
+	start_menu_background.setSize(sf::Vector2f(window_width, window_height));
+	start_menu_background.setFillColor(sf::Color(2, 99, 179));
+	start_menu_background.setPosition(window_width / 2, window_height / 2);
+}
+
+void StartMenuBar::render()
+{
+	window.clear(sf::Color(2, 99, 179));
+	
+	window.draw(start_menu_background);
+
+	window.display();
+}
+
+void StartMenuBar::update()
+{
+	// Update implementation
 }
 
 StartMenuBar::~StartMenuBar()
