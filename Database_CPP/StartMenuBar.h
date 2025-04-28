@@ -3,7 +3,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#define window_width 800
+#include "LeftSideBar.h"
+#define window_width 1000
 #define window_height 600
 #define title "Database Application"
 
@@ -14,6 +15,7 @@ private:
 	sf::RectangleShape start_menu_background;
 	sf::Clock clock;
 	sf::Time delta_time;
+	LeftSideBar left_side_bar;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

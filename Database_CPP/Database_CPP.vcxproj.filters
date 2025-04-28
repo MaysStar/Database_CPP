@@ -21,9 +21,15 @@
     <ClCompile Include="StartMenuBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeftSideBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenuBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftSideBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

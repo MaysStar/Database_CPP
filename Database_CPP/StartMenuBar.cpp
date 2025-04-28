@@ -44,15 +44,17 @@ void StartMenuBar::setData()
 {
 	start_menu_background.setOrigin(window_width / 2, window_height / 2);
 	start_menu_background.setSize(sf::Vector2f(window_width, window_height));
-	start_menu_background.setFillColor(sf::Color(2, 99, 179));
+	start_menu_background.setFillColor(sf::Color(160, 160, 160));
 	start_menu_background.setPosition(window_width / 2, window_height / 2);
 }
 
 void StartMenuBar::render()
 {
-	window.clear(sf::Color(2, 99, 179));
+	window.clear(sf::Color(160, 160, 160));
 	
 	window.draw(start_menu_background);
+
+	window.draw(left_side_bar.getLeftSideBarBackground());
 
 	window.display();
 }
