@@ -56,6 +56,8 @@ void StartMenuBar::render()
 
 	window.draw(left_side_bar.getLeftSideBarBackground());
 
+	window.draw(right_side_bar.getRightSideBarBackground());
+
 	window.display();
 }
 

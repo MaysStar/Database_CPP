@@ -135,10 +135,12 @@
   <ItemGroup>
     <ClCompile Include="Database_CPP.cpp" />
     <ClCompile Include="LeftSideBar.cpp" />
+    <ClCompile Include="RightSideBar.cpp" />
     <ClCompile Include="StartMenuBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LeftSideBar.h" />
+    <ClInclude Include="RightSideBar.h" />
     <ClInclude Include="StartMenuBar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
