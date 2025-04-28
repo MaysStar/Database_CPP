@@ -7,6 +7,7 @@
 #include "RightSideBar.h"
 #include "ImageForObject.h"
 #include "ObjectsName.h"
+#include "ObjectsCount.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -23,6 +24,7 @@ private:
 	RightSideBar right_side_bar;
 	ImageForObject image_for_object;
 	ObjectsName objects_name;
+	ObjectsCount objects_count;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

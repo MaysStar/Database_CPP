@@ -7,7 +7,7 @@ ObjectsData::ObjectsData()
 		throw std::runtime_error("Failed to load image");
 	}
 
-	object_background.setSize(sf::Vector2f(550, 50));
+	object_background.setSize(sf::Vector2f(200, 50));
 
 	object_background.setFillColor(sf::Color(255, 23, 197));
 

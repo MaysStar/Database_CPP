@@ -11,6 +11,8 @@ void ObjectsName::getData()
     sf::String text = "ObjectsName";
     object_text.setString(text);
 
+	object_background.setSize(sf::Vector2f(550, 50));
+	object_background.setOrigin(object_background.getSize().x / 2, object_background.getSize().y / 2);
     object_background.setPosition(870, 85);
 
     object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);

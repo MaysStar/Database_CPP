@@ -136,6 +136,7 @@
     <ClCompile Include="Database_CPP.cpp" />
     <ClCompile Include="ImageForObject.cpp" />
     <ClCompile Include="LeftSideBar.cpp" />
+    <ClCompile Include="ObjectsCount.cpp" />
     <ClCompile Include="ObjectsData.cpp" />
     <ClCompile Include="ObjectsName.cpp" />
     <ClCompile Include="RightSideBar.cpp" />
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="ImageForObject.h" />
     <ClInclude Include="LeftSideBar.h" />
+    <ClInclude Include="ObjectsCount.h" />
     <ClInclude Include="ObjectsData.h" />
     <ClInclude Include="ObjectsName.h" />
     <ClInclude Include="RightSideBar.h" />
