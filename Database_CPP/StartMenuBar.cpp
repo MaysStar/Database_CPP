@@ -6,6 +6,7 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 
 
 	clock.restart();
+	cursor.loadFromSystem(sf::Cursor::Arrow);
 
 
 	processEvents();
@@ -34,6 +35,15 @@ void StartMenuBar::processEvents()
 				window.close();
 		}
 
+		
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+
+		if (image_for_object.getImageForObjectSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+		{
+			cursor.loadFromSystem(sf::Cursor::Hand);
+		}
+		else cursor.loadFromSystem(sf::Cursor::Arrow);
+		
 
 		render();
 		update();
@@ -57,6 +67,10 @@ void StartMenuBar::render()
 	window.draw(left_side_bar.getLeftSideBarBackground());
 
 	window.draw(right_side_bar.getRightSideBarBackground());
+
+	window.draw(image_for_object.getImageForObjectSprite());
+
+	window.setMouseCursor(cursor);
 
 	window.display();
 }

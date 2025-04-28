@@ -11,4 +11,3 @@ public:
 	sf::RectangleShape& getRightSideBarBackground();
 	~RightSideBar();
 };
-

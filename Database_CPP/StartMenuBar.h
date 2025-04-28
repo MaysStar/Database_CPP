@@ -5,7 +5,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "LeftSideBar.h"
 #include "RightSideBar.h"
-#define window_width 1000
+#include "ImageForObject.h"
+#define window_width 1200
 #define window_height 600
 #define title "Database Application"
 
@@ -16,8 +17,10 @@ private:
 	sf::RectangleShape start_menu_background;
 	sf::Clock clock;
 	sf::Time delta_time;
+	sf::Cursor cursor;
 	LeftSideBar left_side_bar;
 	RightSideBar right_side_bar;
+	ImageForObject image_for_object;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();
