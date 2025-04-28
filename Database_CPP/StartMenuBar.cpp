@@ -42,6 +42,10 @@ void StartMenuBar::processEvents()
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
+		else if (objects_name.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+		{
+			cursor.loadFromSystem(sf::Cursor::Hand);
+		}
 		else cursor.loadFromSystem(sf::Cursor::Arrow);
 		
 
@@ -69,6 +73,10 @@ void StartMenuBar::render()
 	window.draw(right_side_bar.getRightSideBarBackground());
 
 	window.draw(image_for_object.getImageForObjectSprite());
+
+	window.draw(objects_name.getBackGround());
+
+	window.draw(objects_name.getText());
 
 	window.setMouseCursor(cursor);
 
