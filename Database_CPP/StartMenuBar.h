@@ -8,6 +8,7 @@
 #include "ImageForObject.h"
 #include "ObjectsName.h"
 #include "ObjectsCount.h"
+#include "ObjectsPrice.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -25,6 +26,7 @@ private:
 	ImageForObject image_for_object;
 	ObjectsName objects_name;
 	ObjectsCount objects_count;
+	ObjectsPrice objects_price;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

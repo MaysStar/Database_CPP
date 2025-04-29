@@ -139,6 +139,7 @@
     <ClCompile Include="ObjectsCount.cpp" />
     <ClCompile Include="ObjectsData.cpp" />
     <ClCompile Include="ObjectsName.cpp" />
+    <ClCompile Include="ObjectsPrice.cpp" />
     <ClCompile Include="RightSideBar.cpp" />
     <ClCompile Include="StartMenuBar.cpp" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="ObjectsCount.h" />
     <ClInclude Include="ObjectsData.h" />
     <ClInclude Include="ObjectsName.h" />
+    <ClInclude Include="ObjectsPrice.h" />
     <ClInclude Include="RightSideBar.h" />
     <ClInclude Include="StartMenuBar.h" />
   </ItemGroup>

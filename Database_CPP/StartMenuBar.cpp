@@ -86,6 +86,10 @@ void StartMenuBar::render()
 
 	window.draw(objects_count.getText());
 
+	window.draw(objects_price.getBackGround());
+
+	window.draw(objects_price.getText());
+
 	window.setMouseCursor(cursor);
 
 	window.display();
