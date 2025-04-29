@@ -12,7 +12,8 @@ void ObjectsPrice::getData()
 	object_text.setString(text);
 
 	object_background.setSize(sf::Vector2f(180, 50));
-	object_background.setPosition(1065, 215);
+	object_background.setOrigin(object_background.getLocalBounds().width / 2, object_background.getLocalBounds().height / 2);
+	object_background.setPosition(1050, 215);
 	object_background.setFillColor(sf::Color(2, 161, 209));
 
 	object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);
