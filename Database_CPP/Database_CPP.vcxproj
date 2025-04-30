@@ -136,23 +136,27 @@
     <ClCompile Include="Database_CPP.cpp" />
     <ClCompile Include="ImageForObject.cpp" />
     <ClCompile Include="LeftSideBar.cpp" />
+    <ClCompile Include="NavigationButtons.cpp" />
     <ClCompile Include="ObjectsCount.cpp" />
     <ClCompile Include="ObjectsData.cpp" />
     <ClCompile Include="ObjectsDescription.cpp" />
     <ClCompile Include="ObjectsName.cpp" />
     <ClCompile Include="ObjectsPrice.cpp" />
     <ClCompile Include="RightSideBar.cpp" />
+    <ClCompile Include="SearchButton.cpp" />
     <ClCompile Include="StartMenuBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageForObject.h" />
     <ClInclude Include="LeftSideBar.h" />
+    <ClInclude Include="NavigationButtons.h" />
     <ClInclude Include="ObjectsCount.h" />
     <ClInclude Include="ObjectsData.h" />
     <ClInclude Include="ObjectsDescription.h" />
     <ClInclude Include="ObjectsName.h" />
     <ClInclude Include="ObjectsPrice.h" />
     <ClInclude Include="RightSideBar.h" />
+    <ClInclude Include="SearchButton.h" />
     <ClInclude Include="StartMenuBar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -52,6 +52,19 @@ void StartMenuBar::processEvents()
 		}
 		else cursor.loadFromSystem(sf::Cursor::Arrow);
 		
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (search_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+			{
+				search_button.increaseCount();
+				search_button.changeButtonTexture();
+			}
+		}
+		else
+		{
+			search_button.setStartCount();
+			search_button.changeButtonTexture();
+		}
 
 		render();
 		update();
@@ -93,6 +106,8 @@ void StartMenuBar::render()
 	window.draw(objects_description.getBackGround());
 
 	window.draw(objects_description.getText());
+
+	window.draw(search_button.getButtonSprite());
 
 	window.setMouseCursor(cursor);
 
