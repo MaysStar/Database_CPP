@@ -56,6 +56,7 @@ void StartMenuBar::processEvents()
 		{
 			if (search_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
 			{
+				//sf::sleep(sf::milliseconds(20));
 				search_button.increaseCount();
 				search_button.changeButtonTexture();
 			}
@@ -86,6 +87,8 @@ void StartMenuBar::render()
 	window.draw(start_menu_background);
 
 	window.draw(left_side_bar.getLeftSideBarBackground());
+
+	window.draw(left_side_bar_in_top.getLeftSideBarInTop());
 
 	window.draw(right_side_bar.getRightSideBarBackground());
 

@@ -3,7 +3,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Sleep.hpp>
 #include "LeftSideBar.h"
+#include "LeftSideBarInTop.h"
 #include "RightSideBar.h"
 #include "ImageForObject.h"
 #include "ObjectsName.h"
@@ -24,6 +26,7 @@ private:
 	sf::Time delta_time;
 	sf::Cursor cursor;
 	LeftSideBar left_side_bar;
+	LeftSideBarInTop left_side_bar_in_top;
 	RightSideBar right_side_bar;
 	ImageForObject image_for_object;
 	ObjectsName objects_name;
