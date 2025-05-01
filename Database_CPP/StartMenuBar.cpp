@@ -60,12 +60,23 @@ void StartMenuBar::processEvents()
 				search_button.increaseCount();
 				search_button.changeButtonTexture();
 			}
+
+			if (minus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+			{
+				//sf::sleep(sf::milliseconds(20));
+				minus_button.increaseCount();
+				minus_button.changeButtonTexture();
+			}
 		}
 		else
 		{
 			search_button.setStartCount();
 			search_button.changeButtonTexture();
+			minus_button.setStartCount();
+			minus_button.changeButtonTexture();
 		}
+
+
 
 		render();
 		update();
@@ -111,6 +122,8 @@ void StartMenuBar::render()
 	window.draw(objects_description.getText());
 
 	window.draw(search_button.getButtonSprite());
+
+	window.draw(minus_button.getButtonSprite());
 
 	window.setMouseCursor(cursor);
 

@@ -15,7 +15,7 @@ void SearchButton::setTexture()
 	button_sprite.setTexture(button_texture);
 	button_sprite.setOrigin(button_sprite.getGlobalBounds().width / 2, button_sprite.getGlobalBounds().height / 2);
 	button_sprite.setScale(.2, .2);
-	button_sprite.setPosition(340, 50);
+	button_sprite.setPosition(340, 51);
 	button_sprite.setTextureRect(sf::IntRect(0, 0, 197, 197));
 }
 

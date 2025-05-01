@@ -13,6 +13,7 @@
 #include "ObjectsPrice.h"
 #include "ObjectsDescription.h"
 #include "SearchButton.h"
+#include "MinusButton.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -34,6 +35,7 @@ private:
 	ObjectsPrice objects_price;
 	ObjectsDescription objects_description;
 	SearchButton search_button;
+	MinusButton minus_button;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

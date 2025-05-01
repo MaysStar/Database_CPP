@@ -137,6 +137,7 @@
     <ClCompile Include="ImageForObject.cpp" />
     <ClCompile Include="LeftSideBar.cpp" />
     <ClCompile Include="LeftSideBarInTop.cpp" />
+    <ClCompile Include="MinusButton.cpp" />
     <ClCompile Include="NavigationButtons.cpp" />
     <ClCompile Include="ObjectsCount.cpp" />
     <ClCompile Include="ObjectsData.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="ImageForObject.h" />
     <ClInclude Include="LeftSideBar.h" />
     <ClInclude Include="LeftSideBarInTop.h" />
+    <ClInclude Include="MinusButton.h" />
     <ClInclude Include="NavigationButtons.h" />
     <ClInclude Include="ObjectsCount.h" />
     <ClInclude Include="ObjectsData.h" />
