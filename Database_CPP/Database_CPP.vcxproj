@@ -144,6 +144,7 @@
     <ClCompile Include="ObjectsDescription.cpp" />
     <ClCompile Include="ObjectsName.cpp" />
     <ClCompile Include="ObjectsPrice.cpp" />
+    <ClCompile Include="PlusButton.cpp" />
     <ClCompile Include="RightSideBar.cpp" />
     <ClCompile Include="SearchButton.cpp" />
     <ClCompile Include="StartMenuBar.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ObjectsDescription.h" />
     <ClInclude Include="ObjectsName.h" />
     <ClInclude Include="ObjectsPrice.h" />
+    <ClInclude Include="PlusButton.h" />
     <ClInclude Include="RightSideBar.h" />
     <ClInclude Include="SearchButton.h" />
     <ClInclude Include="StartMenuBar.h" />

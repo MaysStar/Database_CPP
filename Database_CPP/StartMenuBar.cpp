@@ -36,17 +36,26 @@ void StartMenuBar::processEvents()
 		}
 
 		
-		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
+		sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pixel_pos);
 
-		if (image_for_object.getImageForObjectSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+		if (image_for_object.getImageForObjectSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
-		else if (objects_name.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+		else if (objects_name.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
-		else if (objects_count.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+		else if (objects_count.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+		{
+			cursor.loadFromSystem(sf::Cursor::Hand);
+		}
+		else if (objects_price.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+		{
+			cursor.loadFromSystem(sf::Cursor::Hand);
+		}
+		else if (objects_description.getBackGround().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
@@ -54,18 +63,25 @@ void StartMenuBar::processEvents()
 		
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			if (search_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+			if (search_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 			{
 				//sf::sleep(sf::milliseconds(20));
 				search_button.increaseCount();
 				search_button.changeButtonTexture();
 			}
 
-			if (minus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_position)))
+			if (minus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 			{
 				//sf::sleep(sf::milliseconds(20));
 				minus_button.increaseCount();
 				minus_button.changeButtonTexture();
+			}
+
+			if (plus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+			{
+				//sf::sleep(sf::milliseconds(20));
+				plus_button.increaseCount();
+				plus_button.changeButtonTexture();
 			}
 		}
 		else
@@ -74,6 +90,8 @@ void StartMenuBar::processEvents()
 			search_button.changeButtonTexture();
 			minus_button.setStartCount();
 			minus_button.changeButtonTexture();
+			plus_button.setStartCount();
+			plus_button.changeButtonTexture();
 		}
 
 
@@ -124,6 +142,8 @@ void StartMenuBar::render()
 	window.draw(search_button.getButtonSprite());
 
 	window.draw(minus_button.getButtonSprite());
+
+	window.draw(plus_button.getButtonSprite());
 
 	window.setMouseCursor(cursor);
 
