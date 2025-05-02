@@ -15,7 +15,7 @@ void PlusButton::setTexture()
 	button_sprite.setTexture(button_texture);
 	button_sprite.setOrigin(button_sprite.getGlobalBounds().width / 2, button_sprite.getGlobalBounds().height / 2);
 	button_sprite.setScale(.15, .15);
-	button_sprite.setPosition(260, 51);
+	button_sprite.setPosition(296, 51);
 	button_sprite.setTextureRect(sf::IntRect(0, 0, 233, 242));
 }
 

@@ -15,7 +15,7 @@ void MinusButton::setTexture()
 	button_sprite.setTexture(button_texture);
 	button_sprite.setOrigin(button_sprite.getGlobalBounds().width / 2, button_sprite.getGlobalBounds().height / 2);
 	button_sprite.setScale(.1, .1);
-	button_sprite.setPosition(300, 51);
+	button_sprite.setPosition(335, 51);
 	button_sprite.setTextureRect(sf::IntRect(0, 0, 375, 385));
 }
 
