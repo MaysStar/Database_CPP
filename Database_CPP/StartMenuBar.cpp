@@ -4,6 +4,12 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 {
 	window.setFramerateLimit(60);
 
+	if (!icon.loadFromFile("C:\\programing\\NULP_OOP\\Database_CPP\\source\\icon.png"))
+	{
+		throw std::runtime_error("Failed to load image");
+	}
+
+	window.setIcon(32, 32, icon.getPixelsPtr());
 
 	clock.restart();
 	cursor.loadFromSystem(sf::Cursor::Arrow);

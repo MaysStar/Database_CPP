@@ -23,6 +23,7 @@ class StartMenuBar
 {
 private:
 	sf::RenderWindow window;
+	sf::Image icon;
 	sf::RectangleShape start_menu_background;
 	sf::Clock clock;
 	sf::Time delta_time;
