@@ -15,6 +15,7 @@
 #include "SearchButton.h"
 #include "MinusButton.h"
 #include "PlusButton.h"
+#include "InputField.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -22,6 +23,8 @@
 class StartMenuBar
 {
 private:
+	bool isTextEntering;
+	std::wstring user_input;
 	sf::RenderWindow window;
 	sf::Image icon;
 	sf::RectangleShape start_menu_background;
@@ -39,6 +42,7 @@ private:
 	SearchButton search_button;
 	MinusButton minus_button;
 	PlusButton plus_button;
+	InputField input_field;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

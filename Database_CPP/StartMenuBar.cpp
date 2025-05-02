@@ -14,6 +14,7 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 	clock.restart();
 	cursor.loadFromSystem(sf::Cursor::Arrow);
 
+	isTextEntering = false;
 
 	processEvents();
 }
@@ -27,7 +28,6 @@ void StartMenuBar::processEvents()
 {
 	setData();
 
-
 	while (window.isOpen())
 	{
 		delta_time = clock.getElapsedTime();
@@ -39,13 +39,41 @@ void StartMenuBar::processEvents()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (event.type == sf::Event::TextEntered) {
+				char entered = static_cast<char>(event.text.unicode);
+				
+				if (isTextEntering)
+				{
+					if (entered == 8) { // Backspace
+						if (!user_input.empty()) user_input.pop_back();
+					}
+
+					if (user_input.size() < 12)
+					{
+						if (entered >= 32 && entered < 127) {
+							user_input += entered;
+						}
+						input_field.setText(user_input);
+					}
+				}
+			}
 		}
+
 
 		
 		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
 		sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pixel_pos);
 
-		if (image_for_object.getImageForObjectSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+		if (input_field.getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+		{
+			cursor.loadFromSystem(sf::Cursor::Text);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				isTextEntering = true;
+			}
+		}
+		else if (image_for_object.getImageForObjectSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
@@ -65,7 +93,12 @@ void StartMenuBar::processEvents()
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
+		else if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			isTextEntering = false;
+		}
 		else cursor.loadFromSystem(sf::Cursor::Arrow);
+
 		
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
@@ -150,6 +183,10 @@ void StartMenuBar::render()
 	window.draw(minus_button.getButtonSprite());
 
 	window.draw(plus_button.getButtonSprite());
+
+	window.draw(input_field.getBackground());
+
+	window.draw(input_field.getText());
 
 	window.setMouseCursor(cursor);
 
