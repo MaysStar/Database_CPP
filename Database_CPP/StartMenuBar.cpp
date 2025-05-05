@@ -66,7 +66,21 @@ void StartMenuBar::processEvents()
 			}
 		}
 
+		if (isErase)
+		{
+			if (drugs.empty()) {
+				isErase = false;
+			}
+			else {
+				drugs.erase(drugs.begin() + number_of_pressed_object);
 
+				if (number_of_pressed_object >= drugs.size()) {
+					number_of_pressed_object = static_cast<int>(drugs.size()) - 1;
+				}
+
+				isErase = false;
+			}
+		}
 		
 		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
 		sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pixel_pos);
@@ -85,12 +99,15 @@ void StartMenuBar::processEvents()
 				drugs[i].unsetOutlineThicknessForBackground();
 			}
 		}
-		drugs[number_of_pressed_object].setOutlineThicknessForBackground();
-		image_for_object.setImageForObjectTexture(drugs[number_of_pressed_object].getSprite());
-		objects_name.setData(drugs[number_of_pressed_object].getName());
-		objects_count.setData((drugs[number_of_pressed_object].getCount()));
-		objects_price.setData(drugs[number_of_pressed_object].getPrice());
-		objects_description.setData(drugs[number_of_pressed_object].getDescription());
+		if (!drugs.empty())
+		{
+			drugs[number_of_pressed_object].setOutlineThicknessForBackground();
+			image_for_object.setImageForObjectTexture(drugs[number_of_pressed_object].getSprite());
+			objects_name.setData(drugs[number_of_pressed_object].getName());
+			objects_count.setData((drugs[number_of_pressed_object].getCount()));
+			objects_price.setData(drugs[number_of_pressed_object].getPrice());
+			objects_description.setData(drugs[number_of_pressed_object].getDescription());
+		}
 
 		if (input_field.getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
@@ -141,6 +158,13 @@ void StartMenuBar::processEvents()
 				//sf::sleep(sf::milliseconds(20));
 				minus_button.increaseCount();
 				minus_button.changeButtonTexture();
+
+				time_to_minus = clock_to_minus.getElapsedTime();
+				if (time_to_minus >= sf::seconds(.3))
+				{
+					isErase = true;
+					clock_to_minus.restart();
+				}
 			}
 
 			if (plus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))

@@ -26,13 +26,16 @@ class StartMenuBar
 private:
 	int number_of_pressed_object;
 	bool isTextEntering;
+	bool isErase;
 	std::vector<Drug> drugs;
 	std::wstring user_input;
 	sf::RenderWindow window;
 	sf::Image icon;
 	sf::RectangleShape start_menu_background;
 	sf::Clock clock;
+	sf::Clock clock_to_minus;
 	sf::Time delta_time;
+	sf::Time time_to_minus;
 	sf::Cursor cursor;
 	sf::Font font;
 	LeftSideBar left_side_bar;
