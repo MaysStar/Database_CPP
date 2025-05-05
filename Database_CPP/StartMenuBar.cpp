@@ -109,7 +109,6 @@ void StartMenuBar::processEvents()
 			objects_price.setData(drugs[number_of_pressed_object].getPrice());
 			objects_description.setData(drugs[number_of_pressed_object].getDescription());
 		}
-		std::cout <<  number_of_pressed_object << std::endl;
 
 		if (input_field.getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
@@ -253,7 +252,9 @@ void StartMenuBar::render()
 	{
 		if (isSearch)
 		{
-			if (drugs[i].getName() == std::string(user_input.begin(), user_input.end()) || user_input.empty())
+			int size_of_line = user_input.size();
+			std::string str = drugs[i].getName().substr(0, size_of_line);
+			if (str == std::string(user_input.begin(), user_input.end()) || user_input.empty())
 			{
 				if (130 + count_of_drawing_drugs * 110 < window_height - 100)
 				{
