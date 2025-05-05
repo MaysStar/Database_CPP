@@ -30,6 +30,13 @@ const sf::Text& ObjectsPrice::getText() const
 	return object_text;
 }
 
+void ObjectsPrice::setData(float price)
+{
+	object_text.setString(std::to_string(price));
+	object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);
+	object_text.setPosition(object_background.getPosition());
+}
+
 ObjectsPrice::~ObjectsPrice()
 {
 	// Destructor

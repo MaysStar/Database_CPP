@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Database_CPP.cpp" />
+    <ClCompile Include="Drug.cpp" />
     <ClCompile Include="ImageForObject.cpp" />
     <ClCompile Include="InputField.cpp" />
     <ClCompile Include="LeftSideBar.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="StartMenuBar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drug.h" />
     <ClInclude Include="ImageForObject.h" />
     <ClInclude Include="InputField.h" />
     <ClInclude Include="LeftSideBar.h" />

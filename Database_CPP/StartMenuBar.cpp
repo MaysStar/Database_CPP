@@ -9,12 +9,18 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 		throw std::runtime_error("Failed to load image");
 	}
 
+	if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf"))
+	{
+		throw std::runtime_error("Failed to load image");
+	}
+
 	window.setIcon(32, 32, icon.getPixelsPtr());
 
 	clock.restart();
 	cursor.loadFromSystem(sf::Cursor::Arrow);
 
 	isTextEntering = false;
+	number_of_pressed_object = 0;
 
 	processEvents();
 }
@@ -64,6 +70,27 @@ void StartMenuBar::processEvents()
 		
 		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
 		sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pixel_pos);
+
+		for (int i = 0; i < drugs.size(); i++)
+		{
+			if (drugs[i].getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					number_of_pressed_object = i;
+				}
+			}
+			else
+			{
+				drugs[i].unsetOutlineThicknessForBackground();
+			}
+		}
+		drugs[number_of_pressed_object].setOutlineThicknessForBackground();
+		image_for_object.setImageForObjectTexture(drugs[number_of_pressed_object].getSprite());
+		objects_name.setData(drugs[number_of_pressed_object].getName());
+		objects_count.setData((drugs[number_of_pressed_object].getCount()));
+		objects_price.setData(drugs[number_of_pressed_object].getPrice());
+		objects_description.setData(drugs[number_of_pressed_object].getDescription());
 
 		if (input_field.getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
@@ -146,6 +173,12 @@ void StartMenuBar::setData()
 	start_menu_background.setSize(sf::Vector2f(window_width, window_height));
 	start_menu_background.setFillColor(sf::Color(160, 160, 160));
 	start_menu_background.setPosition(window_width / 2, window_height / 2);
+
+	drugs.push_back(Drug(10, 20.0f, "Paracetamol", "Pain reliever", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\paracetamol.jpg"));
+	drugs.push_back(Drug(5, 15.0f, "Ibuprofen", "Anti-inflammatory", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ibuprofen.jpeg"));
+	drugs.push_back(Drug(8, 30.0f, "Aspirin", "Blood thinner", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\aspirin.jpeg"));
+	drugs.push_back(Drug(12, 25.0f, "Amoxicillin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\amoxicillin.jpeg"));
+	drugs.push_back(Drug(7, 18.0f, "Ciprofloxacin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ciprofloxacin.jpeg"));
 }
 
 void StartMenuBar::render()
@@ -187,6 +220,19 @@ void StartMenuBar::render()
 	window.draw(input_field.getBackground());
 
 	window.draw(input_field.getText());
+
+	for (int i = 0; i < drugs.size(); i++)
+	{
+		if (130 + i * 110 < window_height - 100)
+		{
+			drugs[i].setBackgroundPosition(170, 130 + i * 110);
+			window.draw(drugs[i].getBackground());
+			sf::Text text = drugs[i].getText();
+			text.setFont(font);
+			text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+			window.draw(text);
+		}
+	}
 
 	window.setMouseCursor(cursor);
 

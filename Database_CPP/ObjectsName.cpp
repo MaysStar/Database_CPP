@@ -30,6 +30,13 @@ const sf::Text& ObjectsName::getText() const
 	return object_text;
 }
 
+void ObjectsName::setData(const std::string name)
+{
+	object_text.setString(name);
+	object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);
+	object_text.setPosition(object_background.getPosition());
+}
+
 ObjectsName::~ObjectsName()
 {
 	// Destructor

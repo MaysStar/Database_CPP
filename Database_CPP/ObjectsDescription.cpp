@@ -30,6 +30,13 @@ const sf::Text& ObjectsDescription::getText() const
 	return object_text;
 }
 
+void ObjectsDescription::setData(std::string description)
+{
+	object_text.setString(description);
+	object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);
+	object_text.setPosition(object_background.getPosition());
+}
+
 ObjectsDescription::~ObjectsDescription()
 {
 	// Destructor

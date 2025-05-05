@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <vector>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -16,6 +16,7 @@
 #include "MinusButton.h"
 #include "PlusButton.h"
 #include "InputField.h"
+#include "Drug.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -23,7 +24,9 @@
 class StartMenuBar
 {
 private:
+	int number_of_pressed_object;
 	bool isTextEntering;
+	std::vector<Drug> drugs;
 	std::wstring user_input;
 	sf::RenderWindow window;
 	sf::Image icon;
@@ -31,6 +34,7 @@ private:
 	sf::Clock clock;
 	sf::Time delta_time;
 	sf::Cursor cursor;
+	sf::Font font;
 	LeftSideBar left_side_bar;
 	LeftSideBarInTop left_side_bar_in_top;
 	RightSideBar right_side_bar;

@@ -11,6 +11,7 @@ private:
 	sf::Sprite image_for_Object_sprite;
 public:
 	ImageForObject();
+	void setImageForObjectTexture(const std::string& sprite);
 	const sf::Texture& getImageForObjectTexture() const;
 	const sf::Sprite& getImageForObjectSprite() const;
 	~ImageForObject();
