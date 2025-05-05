@@ -70,18 +70,17 @@ void StartMenuBar::processEvents()
 
 		if (isErase)
 		{
-			if (drugs.empty()) {
-				isErase = false;
-			}
-			else {
+			if (!drugs.empty())
+			{
 				drugs.erase(drugs.begin() + number_of_pressed_object);
 
-				if (number_of_pressed_object >= drugs.size()) {
+				if (number_of_pressed_object >= drugs.size())
+				{
 					number_of_pressed_object = static_cast<int>(drugs.size()) - 1;
 				}
 
-				isErase = false;
 			}
+			isErase = false;
 		}
 		
 		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
@@ -101,7 +100,7 @@ void StartMenuBar::processEvents()
 				drugs[i].unsetOutlineThicknessForBackground();
 			}
 		}
-		if (!drugs.empty())
+		if (!drugs.empty() && number_of_pressed_object >= 0 && number_of_pressed_object < drugs.size())
 		{
 			drugs[number_of_pressed_object].setOutlineThicknessForBackground();
 			image_for_object.setImageForObjectTexture(drugs[number_of_pressed_object].getSprite());
@@ -110,6 +109,7 @@ void StartMenuBar::processEvents()
 			objects_price.setData(drugs[number_of_pressed_object].getPrice());
 			objects_description.setData(drugs[number_of_pressed_object].getDescription());
 		}
+		std::cout <<  number_of_pressed_object << std::endl;
 
 		if (input_field.getBackground().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 		{
@@ -272,15 +272,14 @@ void StartMenuBar::render()
 		{
 			for (int i = 0; i < drugs.size(); i++)
 			{
-				if (130 + count_of_drawing_drugs * 110 < window_height - 100)
+				if (130 + i * 110 < window_height - 100)
 				{
-					drugs[count_of_drawing_drugs].setBackgroundPosition(170, 130 + count_of_drawing_drugs * 110);
+					drugs[i].setBackgroundPosition(170, 130 + i * 110);
 					window.draw(drugs[i].getBackground());
 					sf::Text text = drugs[i].getText();
 					text.setFont(font);
 					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
 					window.draw(text);
-					count_of_drawing_drugs++;
 				}
 			}
 		}
