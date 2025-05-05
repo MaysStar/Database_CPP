@@ -14,7 +14,7 @@ void ObjectsName::getData()
 	object_background.setSize(sf::Vector2f(545, 50));
 	object_background.setOrigin(object_background.getSize().x / 2, object_background.getSize().y / 2);
     object_background.setPosition(870, 85);
-
+	object_background.setFillColor(sf::Color(33, 133, 104));
     object_text.setOrigin(object_text.getLocalBounds().width / 2, object_text.getLocalBounds().height / 2);
     object_text.setPosition(object_background.getPosition());
 }

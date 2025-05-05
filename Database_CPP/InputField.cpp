@@ -4,10 +4,10 @@ InputField::InputField()
 {
     input_field.setSize(sf::Vector2f(180, 38));
     input_field.setOrigin(input_field.getGlobalBounds().width / 2, input_field.getGlobalBounds().height / 2);
-    input_field.setPosition(112, 50);
-    input_field.setFillColor(sf::Color(97, 97, 97));
+    input_field.setPosition(113, 52);
+    input_field.setFillColor(sf::Color(153, 159, 161));
     input_field.setOutlineColor(sf::Color::Black);
-    input_field.setOutlineThickness(1);
+    input_field.setOutlineThickness(3);
 
     if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf"))
     {

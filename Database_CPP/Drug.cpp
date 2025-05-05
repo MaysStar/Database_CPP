@@ -20,7 +20,7 @@ void Drug::setBackground()
 {
 	background.setSize(sf::Vector2f(280, 100));
 	background.setOrigin(background.getSize().x / 2, background.getSize().y / 2);
-	background.setFillColor(sf::Color(97, 97, 97));
+	background.setFillColor(sf::Color(33, 133, 104));
 	background.setOutlineThickness(0.0f);
 }
 

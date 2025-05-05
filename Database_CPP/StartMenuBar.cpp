@@ -256,9 +256,9 @@ void StartMenuBar::render()
 			std::string str = drugs[i].getName().substr(0, size_of_line);
 			if (str == std::string(user_input.begin(), user_input.end()) || user_input.empty())
 			{
-				if (130 + count_of_drawing_drugs * 110 < window_height - 100)
+				if (150 + count_of_drawing_drugs * 110 < window_height - 100)
 				{
-					drugs[count_of_drawing_drugs].setBackgroundPosition(170, 130 + count_of_drawing_drugs * 110);
+					drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
 					window.draw(drugs[i].getBackground());
 					sf::Text text = drugs[i].getText();
 					text.setFont(font);
@@ -273,9 +273,9 @@ void StartMenuBar::render()
 		{
 			for (int i = 0; i < drugs.size(); i++)
 			{
-				if (130 + i * 110 < window_height - 100)
+				if (150 + i * 110 < window_height - 100)
 				{
-					drugs[i].setBackgroundPosition(170, 130 + i * 110);
+					drugs[i].setBackgroundPosition(170, 150 + i * 110);
 					window.draw(drugs[i].getBackground());
 					sf::Text text = drugs[i].getText();
 					text.setFont(font);

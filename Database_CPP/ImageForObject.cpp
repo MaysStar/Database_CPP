@@ -26,7 +26,7 @@ void ImageForObject::setImageForObjectTexture(const std::string& sprite)
 	}
 	image_for_Object_sprite.setTexture(image_for_Object_texture);
 	image_for_Object_sprite.setOrigin(image_for_Object_sprite.getGlobalBounds().width / 2, image_for_Object_sprite.getGlobalBounds().height / 2);
-	image_for_Object_sprite.setPosition(385, 87);
+	image_for_Object_sprite.setPosition(380, 84);
 	image_for_Object_sprite.setScale(0.3f, 0.3f);
 }
 

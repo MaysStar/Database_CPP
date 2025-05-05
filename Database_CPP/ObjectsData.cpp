@@ -13,6 +13,10 @@ ObjectsData::ObjectsData()
 
 	object_background.setOrigin(object_background.getSize().x / 2, object_background.getSize().y / 2);
 
+	object_background.setOutlineThickness(3);
+
+	object_background.setOutlineColor(sf::Color::Black);
+
 	object_text.setFont(font);
 
 	object_text.setCharacterSize(20);
