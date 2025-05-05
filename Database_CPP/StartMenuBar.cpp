@@ -20,6 +20,7 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 	cursor.loadFromSystem(sf::Cursor::Arrow);
 
 	isTextEntering = false;
+	isSearch = false;
 	number_of_pressed_object = 0;
 
 	processEvents();
@@ -51,6 +52,7 @@ void StartMenuBar::processEvents()
 				
 				if (isTextEntering)
 				{
+					isSearch = false;
 					if (entered == 8) { // Backspace
 						if (!user_input.empty()) user_input.pop_back();
 					}
@@ -151,6 +153,7 @@ void StartMenuBar::processEvents()
 				//sf::sleep(sf::milliseconds(20));
 				search_button.increaseCount();
 				search_button.changeButtonTexture();
+				isSearch = true;
 			}
 
 			if (minus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
@@ -245,16 +248,41 @@ void StartMenuBar::render()
 
 	window.draw(input_field.getText());
 
+	int count_of_drawing_drugs = 0;
 	for (int i = 0; i < drugs.size(); i++)
 	{
-		if (130 + i * 110 < window_height - 100)
+		if (isSearch)
 		{
-			drugs[i].setBackgroundPosition(170, 130 + i * 110);
-			window.draw(drugs[i].getBackground());
-			sf::Text text = drugs[i].getText();
-			text.setFont(font);
-			text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-			window.draw(text);
+			if (drugs[i].getName() == std::string(user_input.begin(), user_input.end()) || user_input.empty())
+			{
+				if (130 + count_of_drawing_drugs * 110 < window_height - 100)
+				{
+					drugs[count_of_drawing_drugs].setBackgroundPosition(170, 130 + count_of_drawing_drugs * 110);
+					window.draw(drugs[i].getBackground());
+					sf::Text text = drugs[i].getText();
+					text.setFont(font);
+					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+					window.draw(text);
+					count_of_drawing_drugs++;
+				}
+			}
+
+		}
+		else if(user_input.empty())
+		{
+			for (int i = 0; i < drugs.size(); i++)
+			{
+				if (130 + count_of_drawing_drugs * 110 < window_height - 100)
+				{
+					drugs[count_of_drawing_drugs].setBackgroundPosition(170, 130 + count_of_drawing_drugs * 110);
+					window.draw(drugs[i].getBackground());
+					sf::Text text = drugs[i].getText();
+					text.setFont(font);
+					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+					window.draw(text);
+					count_of_drawing_drugs++;
+				}
+			}
 		}
 	}
 
