@@ -25,9 +25,12 @@ class StartMenuBar
 {
 private:
 	int number_of_pressed_object;
+	int start_index;
 	bool isTextEntering;
 	bool isErase;
 	bool isSearch;
+	bool isScrollUp;
+	bool isScrollDown;
 	std::vector<Drug> drugs;
 	std::wstring user_input;
 	sf::RenderWindow window;

@@ -22,6 +22,7 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 	isTextEntering = false;
 	isSearch = false;
 	number_of_pressed_object = 0;
+	start_index = 0; // Ініціалізація початкового індексу для відображення елементів
 
 	processEvents();
 }
@@ -39,7 +40,6 @@ void StartMenuBar::processEvents()
 	{
 		delta_time = clock.getElapsedTime();
 		clock.restart();
-		//std::cout << delta_time.asSeconds() << std::endl;
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -49,7 +49,7 @@ void StartMenuBar::processEvents()
 
 			if (event.type == sf::Event::TextEntered) {
 				char entered = static_cast<char>(event.text.unicode);
-				
+
 				if (isTextEntering)
 				{
 					isSearch = false;
@@ -82,7 +82,7 @@ void StartMenuBar::processEvents()
 			}
 			isErase = false;
 		}
-		
+
 		sf::Vector2i mouse_pixel_pos = sf::Mouse::getPosition(window);
 		sf::Vector2f mouse_world_pos = window.mapPixelToCoords(mouse_pixel_pos);
 
@@ -138,18 +138,17 @@ void StartMenuBar::processEvents()
 		{
 			cursor.loadFromSystem(sf::Cursor::Hand);
 		}
-		else if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			isTextEntering = false;
 		}
 		else cursor.loadFromSystem(sf::Cursor::Arrow);
 
-		
+
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			if (search_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 			{
-				//sf::sleep(sf::milliseconds(20));
 				search_button.increaseCount();
 				search_button.changeButtonTexture();
 				isSearch = true;
@@ -157,7 +156,6 @@ void StartMenuBar::processEvents()
 
 			if (minus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 			{
-				//sf::sleep(sf::milliseconds(20));
 				minus_button.increaseCount();
 				minus_button.changeButtonTexture();
 
@@ -171,11 +169,43 @@ void StartMenuBar::processEvents()
 
 			if (plus_button.getButtonSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
 			{
-				//sf::sleep(sf::milliseconds(20));
 				plus_button.increaseCount();
 				plus_button.changeButtonTexture();
 			}
 		}
+		else if (event.type == sf::Event::MouseWheelScrolled)
+		{
+			static sf::Clock scroll_clock; // Таймер для затримки
+			sf::Time scroll_delay = sf::milliseconds(100); // Затримка 100 мс
+
+			if (scroll_clock.getElapsedTime() >= scroll_delay) // Перевіряємо, чи минула затримка
+			{
+				if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
+				{
+					const int max_visible_items = 4; // Кількість елементів, які відображаються одночасно
+					const int total_items = static_cast<int>(drugs.size());
+
+					if (event.mouseWheelScroll.delta < 0) // Прокручування вниз
+					{
+						if (start_index + max_visible_items < total_items)
+						{
+							start_index++;
+						}
+					}
+					else if (event.mouseWheelScroll.delta > 0) // Прокручування вверх
+					{
+						if (start_index > 0)
+						{
+							start_index--;
+						}
+					}
+				}
+
+				scroll_clock.restart(); // Перезапускаємо таймер
+			}
+		}
+
+
 		else
 		{
 			search_button.setStartCount();
@@ -185,8 +215,6 @@ void StartMenuBar::processEvents()
 			plus_button.setStartCount();
 			plus_button.changeButtonTexture();
 		}
-
-
 
 		render();
 		update();
@@ -210,7 +238,7 @@ void StartMenuBar::setData()
 void StartMenuBar::render()
 {
 	window.clear(sf::Color(160, 160, 160));
-	
+
 	window.draw(start_menu_background);
 
 	window.draw(left_side_bar.getLeftSideBarBackground());
@@ -248,41 +276,20 @@ void StartMenuBar::render()
 	window.draw(input_field.getText());
 
 	int count_of_drawing_drugs = 0;
-	for (int i = 0; i < drugs.size(); i++)
+	for (int i = start_index; i < drugs.size(); i++)
 	{
-		if (isSearch)
-		{
-			int size_of_line = user_input.size();
-			std::string str = drugs[i].getName().substr(0, size_of_line);
-			if (str == std::string(user_input.begin(), user_input.end()) || user_input.empty())
-			{
-				if (150 + count_of_drawing_drugs * 110 < window_height - 100)
-				{
-					drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
-					window.draw(drugs[i].getBackground());
-					sf::Text text = drugs[i].getText();
-					text.setFont(font);
-					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-					window.draw(text);
-					count_of_drawing_drugs++;
-				}
-			}
+		if (count_of_drawing_drugs >= 4) // Відображаємо максимум 4 елементи
+			break;
 
-		}
-		else if(user_input.empty())
+		if (150 + count_of_drawing_drugs * 110 < window_height - 100)
 		{
-			for (int i = 0; i < drugs.size(); i++)
-			{
-				if (150 + i * 110 < window_height - 100)
-				{
-					drugs[i].setBackgroundPosition(170, 150 + i * 110);
-					window.draw(drugs[i].getBackground());
-					sf::Text text = drugs[i].getText();
-					text.setFont(font);
-					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-					window.draw(text);
-				}
-			}
+			drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
+			window.draw(drugs[i].getBackground());
+			sf::Text text = drugs[i].getText();
+			text.setFont(font);
+			text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+			window.draw(text);
+			count_of_drawing_drugs++;
 		}
 	}
 
