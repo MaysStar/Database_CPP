@@ -257,13 +257,16 @@ void StartMenuBar::setData()
 	drugs.push_back(Drug(5, 15.0f, "Ibuprofen", "Anti-inflammatory", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ibuprofen.jpeg"));
 	drugs.push_back(Drug(8, 30.0f, "Aspirin", "Blood thinner", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\aspirin.jpeg"));
 	drugs.push_back(Drug(12, 25.0f, "Amoxicillin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\amoxicillin.jpeg"));
-	drugs.push_back(Drug(7, 18.0f, "Ciprofloxacin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ciprofloxacin.jpeg"));
+	drugs.push_back(Drug(7, 18.0f, "Aiprofloxacin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ciprofloxacin.jpeg"));
+	drugs.push_back(Drug(3, 22.0f, "Aetformin", "Diabetes medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\metformin.jpeg"));
+	drugs.push_back(Drug(6, 28.0f, "Aimvastatin", "Cholesterol medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\simvastatin.jpeg"));
+	drugs.push_back(Drug(4, 12.0f, "Aisinopril", "Blood pressure medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\lisinopril.jpeg"));
 }
 
 void StartMenuBar::render()
 {
 	window.clear(sf::Color(160, 160, 160));
-
+	
 	// Малюємо основний фон
 	window.draw(start_menu_background);
 
@@ -288,27 +291,57 @@ void StartMenuBar::render()
 	window.draw(minus_button.getButtonSprite());
 	window.draw(plus_button.getButtonSprite());
 
-	// Малюємо поле вводу
+		// Малюємо поле вводу
 	window.draw(input_field.getBackground());
 	window.draw(input_field.getText());
 
-	// Малюємо список ліків
-	int count_of_drawing_drugs = 0;
-	for (int i = start_index; i < drugs.size(); i++)
+	if (isSearch)
 	{
-		if (150 + count_of_drawing_drugs * 110 < window_height - 100)
+		if (user_input.empty())
 		{
-			drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
-			window.draw(drugs[i].getBackground());
-			sf::Text text = drugs[i].getText();
-			text.setFont(font);
-			text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-			window.draw(text);
-			count_of_drawing_drugs++;
+			isSearch = false;
 		}
 		else
 		{
-			break; // Виходимо з циклу, якщо елементи більше не поміщаються у вікно
+			int count_of_drawing_drugs = 0;
+			for (int i = 0; i < drugs.size(); i++)
+			{
+				std::string str = drugs[i].getName().substr(0, user_input.size());
+				if (150 + count_of_drawing_drugs * 110 < window_height - 100)
+				{
+					if (str == std::string(user_input.begin(), user_input.end()))
+					{
+						drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
+						window.draw(drugs[i].getBackground());
+						sf::Text text = drugs[i].getText();
+						text.setFont(font);
+						text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+						window.draw(text);
+						count_of_drawing_drugs++;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		int count_of_drawing_drugs = 0;
+		for (int i = start_index; i < drugs.size(); i++)
+		{
+			if (150 + count_of_drawing_drugs * 110 < window_height - 100)
+			{
+				drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
+				window.draw(drugs[i].getBackground());
+				sf::Text text = drugs[i].getText();
+				text.setFont(font);
+				text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+				window.draw(text);
+				count_of_drawing_drugs++;
+			}
+			else
+			{
+				break; // Виходимо з циклу, якщо елементи більше не поміщаються у вікно
+			}
 		}
 	}
 
@@ -334,6 +367,7 @@ void StartMenuBar::render()
 
 	// Відображаємо все на екрані
 	window.display();
+
 }
 
 
