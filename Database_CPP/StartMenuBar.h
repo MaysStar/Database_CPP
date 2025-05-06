@@ -17,6 +17,7 @@
 #include "PlusButton.h"
 #include "InputField.h"
 #include "Drug.h"
+#include "AddObject.h"
 #define window_width 1200
 #define window_height 600
 #define title "Database Application"
@@ -26,6 +27,7 @@ class StartMenuBar
 private:
 	int number_of_pressed_object;
 	bool isTextEntering;
+	bool isAdd;
 	bool isErase;
 	bool isSearch;
 	std::vector<Drug> drugs;
@@ -51,6 +53,7 @@ private:
 	MinusButton minus_button;
 	PlusButton plus_button;
 	InputField input_field;
+	AddObject add_object;
 public:
 	StartMenuBar();
 	sf::RenderWindow& getWindow();

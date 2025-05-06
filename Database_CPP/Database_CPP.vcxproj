@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddObject.cpp" />
     <ClCompile Include="Database_CPP.cpp" />
     <ClCompile Include="Drug.cpp" />
     <ClCompile Include="ImageForObject.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="StartMenuBar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddObject.h" />
     <ClInclude Include="Drug.h" />
     <ClInclude Include="ImageForObject.h" />
     <ClInclude Include="InputField.h" />

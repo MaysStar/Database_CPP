@@ -1,6 +1,6 @@
 #include "StartMenuBar.h"
 
-StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title)
+StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title), add_object(window_width, window_height)
 {
 	window.setFramerateLimit(60);
 
@@ -21,6 +21,8 @@ StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height)
 
 	isTextEntering = false;
 	isSearch = false;
+	isAdd = false;
+	isErase = false;
 	number_of_pressed_object = 0;
 
 	processEvents();
@@ -100,6 +102,19 @@ void StartMenuBar::processEvents()
 				drugs[i].unsetOutlineThicknessForBackground();
 			}
 		}
+
+		if (isAdd)
+		{
+			if(add_object.getSubmitObjectBackgroundForTextSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
+			{
+				cursor.loadFromSystem(sf::Cursor::Text);
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					isAdd = false;
+				}
+			}
+		}
+
 		if (!drugs.empty() && number_of_pressed_object >= 0 && number_of_pressed_object < drugs.size())
 		{
 			drugs[number_of_pressed_object].setOutlineThicknessForBackground();
@@ -174,6 +189,13 @@ void StartMenuBar::processEvents()
 				//sf::sleep(sf::milliseconds(20));
 				plus_button.increaseCount();
 				plus_button.changeButtonTexture();
+
+				time_to_minus = clock_to_minus.getElapsedTime();
+				if (time_to_minus >= sf::seconds(.3))
+				{
+					isAdd = true;
+					clock_to_minus.restart();
+				}
 			}
 		}
 		else
@@ -247,6 +269,8 @@ void StartMenuBar::render()
 
 	window.draw(input_field.getText());
 
+	//window.draw()
+
 	int count_of_drawing_drugs = 0;
 	for (int i = 0; i < drugs.size(); i++)
 	{
@@ -284,6 +308,34 @@ void StartMenuBar::render()
 				}
 			}
 		}
+	}
+
+	if (isAdd)
+	{
+		window.draw(add_object.getAddObjectBackground());
+
+		window.draw(add_object.getSubmitObjectBackgroundForTextSprite());
+
+		window.draw(add_object.getAddObjectBackgroundForText());
+
+		window.draw(add_object.getAddObjectBackgroundForText2());
+
+		window.draw(add_object.getAddObjectBackgroundForText3());
+
+		window.draw(add_object.getAddObjectBackgroundForText4());
+
+		window.draw(add_object.getAddObjectBackgroundForText5());
+
+		window.draw((add_object.getAddObjectText()));
+
+		window.draw((add_object.getAddObjectText2()));
+
+		window.draw((add_object.getAddObjectText3()));
+
+		window.draw((add_object.getAddObjectText4()));
+
+		window.draw((add_object.getAddObjectText5()));
+
 	}
 
 	window.setMouseCursor(cursor);
