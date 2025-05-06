@@ -1,4 +1,4 @@
-#include "StartMenuBar.h"
+﻿#include "StartMenuBar.h"
 
 StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title), add_object(window_width, window_height)
 {
@@ -198,6 +198,37 @@ void StartMenuBar::processEvents()
 				}
 			}
 		}
+		else if (event.type == sf::Event::MouseWheelScrolled)
+		{
+			static sf::Clock scroll_clock; // Òàéìåð äëÿ çàòðèìêè
+			sf::Time scroll_delay = sf::milliseconds(100); // Çàòðèìêà 100 ìñ
+
+			if (scroll_clock.getElapsedTime() >= scroll_delay) // Ïåðåâ³ðÿºìî, ÷è ìèíóëà çàòðèìêà
+			{
+				if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
+				{
+					const int max_visible_items = 4; // Ê³ëüê³ñòü åëåìåíò³â, ÿê³ â³äîáðàæàþòüñÿ îäíî÷àñíî
+					const int total_items = static_cast<int>(drugs.size());
+
+					if (event.mouseWheelScroll.delta < 0) // Ïðîêðó÷óâàííÿ âíèç
+					{
+						if (start_index + max_visible_items < total_items)
+						{
+							start_index++;
+						}
+					}
+					else if (event.mouseWheelScroll.delta > 0) // Ïðîêðó÷óâàííÿ ââåðõ
+					{
+						if (start_index > 0)
+						{
+							start_index--;
+						}
+					}
+				}
+
+				scroll_clock.restart(); // Ïåðåçàïóñêàºìî òàéìåð
+			}
+		}
 		else
 		{
 			search_button.setStartCount();
@@ -232,116 +263,79 @@ void StartMenuBar::setData()
 void StartMenuBar::render()
 {
 	window.clear(sf::Color(160, 160, 160));
-	
+
+	// Малюємо основний фон
 	window.draw(start_menu_background);
 
+	// Малюємо бічні панелі
 	window.draw(left_side_bar.getLeftSideBarBackground());
-
 	window.draw(left_side_bar_in_top.getLeftSideBarInTop());
-
 	window.draw(right_side_bar.getRightSideBarBackground());
 
+	// Малюємо інформацію про обраний об'єкт
 	window.draw(image_for_object.getImageForObjectSprite());
-
 	window.draw(objects_name.getBackGround());
-
 	window.draw(objects_name.getText());
-
 	window.draw(objects_count.getBackGround());
-
 	window.draw(objects_count.getText());
-
 	window.draw(objects_price.getBackGround());
-
 	window.draw(objects_price.getText());
-
 	window.draw(objects_description.getBackGround());
-
 	window.draw(objects_description.getText());
 
+	// Малюємо кнопки
 	window.draw(search_button.getButtonSprite());
-
 	window.draw(minus_button.getButtonSprite());
-
 	window.draw(plus_button.getButtonSprite());
 
+	// Малюємо поле вводу
 	window.draw(input_field.getBackground());
-
 	window.draw(input_field.getText());
 
-	//window.draw()
-
+	// Малюємо список ліків
 	int count_of_drawing_drugs = 0;
-	for (int i = 0; i < drugs.size(); i++)
+	for (int i = start_index; i < drugs.size(); i++)
 	{
-		if (isSearch)
+		if (150 + count_of_drawing_drugs * 110 < window_height - 100)
 		{
-			int size_of_line = user_input.size();
-			std::string str = drugs[i].getName().substr(0, size_of_line);
-			if (str == std::string(user_input.begin(), user_input.end()) || user_input.empty())
-			{
-				if (150 + count_of_drawing_drugs * 110 < window_height - 100)
-				{
-					drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
-					window.draw(drugs[i].getBackground());
-					sf::Text text = drugs[i].getText();
-					text.setFont(font);
-					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-					window.draw(text);
-					count_of_drawing_drugs++;
-				}
-			}
-
+			drugs[i].setBackgroundPosition(170, 150 + count_of_drawing_drugs * 110);
+			window.draw(drugs[i].getBackground());
+			sf::Text text = drugs[i].getText();
+			text.setFont(font);
+			text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
+			window.draw(text);
+			count_of_drawing_drugs++;
 		}
-		else if(user_input.empty())
+		else
 		{
-			for (int i = 0; i < drugs.size(); i++)
-			{
-				if (150 + i * 110 < window_height - 100)
-				{
-					drugs[i].setBackgroundPosition(170, 150 + i * 110);
-					window.draw(drugs[i].getBackground());
-					sf::Text text = drugs[i].getText();
-					text.setFont(font);
-					text.setPosition(drugs[i].getBackground().getPosition().x, drugs[i].getBackground().getPosition().y);
-					window.draw(text);
-				}
-			}
+			break; // Виходимо з циклу, якщо елементи більше не поміщаються у вікно
 		}
 	}
 
+	// Малюємо вікно додавання об'єкта, якщо активне
 	if (isAdd)
 	{
 		window.draw(add_object.getAddObjectBackground());
-
 		window.draw(add_object.getSubmitObjectBackgroundForTextSprite());
-
 		window.draw(add_object.getAddObjectBackgroundForText());
-
 		window.draw(add_object.getAddObjectBackgroundForText2());
-
 		window.draw(add_object.getAddObjectBackgroundForText3());
-
 		window.draw(add_object.getAddObjectBackgroundForText4());
-
 		window.draw(add_object.getAddObjectBackgroundForText5());
-
-		window.draw((add_object.getAddObjectText()));
-
-		window.draw((add_object.getAddObjectText2()));
-
-		window.draw((add_object.getAddObjectText3()));
-
-		window.draw((add_object.getAddObjectText4()));
-
-		window.draw((add_object.getAddObjectText5()));
-
+		window.draw(add_object.getAddObjectText());
+		window.draw(add_object.getAddObjectText2());
+		window.draw(add_object.getAddObjectText3());
+		window.draw(add_object.getAddObjectText4());
+		window.draw(add_object.getAddObjectText5());
 	}
 
+	// Встановлюємо курсор
 	window.setMouseCursor(cursor);
 
+	// Відображаємо все на екрані
 	window.display();
 }
+
 
 void StartMenuBar::update()
 {

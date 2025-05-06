@@ -18,11 +18,12 @@ private:
 	sf::RectangleShape add_object_background_for_text_3;
 	sf::RectangleShape add_object_background_for_text_4;
 	sf::RectangleShape add_object_background_for_text_5;
-	sf::Text add_object_text;
+	sf::Text add_object_text;                              
 	sf::Text add_object_text_2;
 	sf::Text add_object_text_3;
 	sf::Text add_object_text_4;
 	sf::Text add_object_text_5;	
+
 	void setAddObjectBackground(float window_width, float window_height);
 public:
 	AddObject(float window_width, float window_height);

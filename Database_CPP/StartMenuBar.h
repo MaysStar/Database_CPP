@@ -26,6 +26,7 @@ class StartMenuBar
 {
 private:
 	int number_of_pressed_object;
+	int start_index;
 	bool isTextEntering;
 	bool isAdd;
 	bool isErase;
