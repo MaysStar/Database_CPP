@@ -1,6 +1,31 @@
 ﻿#include "StartMenuBar.h"
 
-StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title), add_object(window_width, window_height)
+std::string EscapeBackslashes(const std::string& input) {
+	std::string result;
+	result.reserve(input.length()); // оптимізація
+
+	for (size_t i = 0; i < input.length(); ++i) 
+	{
+		if (input[i] == '\\') 
+		{
+			if (i + 1 < input.length() && input[i + 1] == '\\') {
+				result += "\\\\";
+				++i;
+			}
+			else {
+				result += "\\\\";
+			}
+		}
+		else 
+		{
+		 result += input[i];
+		}
+	}
+	return result;
+}
+
+
+StartMenuBar::StartMenuBar() : window(sf::VideoMode(window_width, window_height), title) 
 {
 	window.setFramerateLimit(60);
 
@@ -105,14 +130,50 @@ void StartMenuBar::processEvents()
 
 		if (isAdd)
 		{
-			if(add_object.getSubmitObjectBackgroundForTextSprite().getGlobalBounds().contains(static_cast<sf::Vector2f>(mouse_world_pos)))
-			{
-				cursor.loadFromSystem(sf::Cursor::Text);
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-				{
-					isAdd = false;
-				}
+			std::string name, description, image_path;
+			int count;
+			float price;
+
+			std::cout << "Enter drug name: ";
+			if (!std::getline(std::cin, name)) {
+				std::cout << "error enter\n";
+				return;
 			}
+
+			std::cout << "Enter drug count: ";
+			if (!(std::cin >> count)) {
+				std::cout << "error enter\n";
+				return;
+			}
+
+			std::cout << "Enter drug price: ";
+			if (!(std::cin >> price)) {
+				std::cout << "error enter\n";
+				return;
+			}
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Enter drug description: ";
+			if (!std::getline(std::cin, description)) {
+				std::cout << "error enter\n";
+				return;
+			}
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+
+			std::cout << "Enter drug image path: ";
+			if (!std::getline(std::cin, image_path)) {
+				std::cout << "error enter\n";
+				return;
+			}
+
+			image_path = EscapeBackslashes(image_path); // Escape backslashes
+
+			drugs.push_back(Drug(count, price, name, description, image_path));
+			std::cout << "Drug added successfully!\n";
+			//4, 12.0f, "Lisinopril", "Blood pressure medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\lisinopril.jpeg"
+
+			isAdd = false;
 		}
 
 		if (!drugs.empty() && number_of_pressed_object >= 0 && number_of_pressed_object < drugs.size())
@@ -200,24 +261,24 @@ void StartMenuBar::processEvents()
 		}
 		else if (event.type == sf::Event::MouseWheelScrolled)
 		{
-			static sf::Clock scroll_clock; // Òàéìåð äëÿ çàòðèìêè
-			sf::Time scroll_delay = sf::milliseconds(100); // Çàòðèìêà 100 ìñ
+			static sf::Clock scroll_clock; 
+			sf::Time scroll_delay = sf::milliseconds(200); 
 
-			if (scroll_clock.getElapsedTime() >= scroll_delay) // Ïåðåâ³ðÿºìî, ÷è ìèíóëà çàòðèìêà
+			if (scroll_clock.getElapsedTime() >= scroll_delay) 
 			{
 				if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
 				{
-					const int max_visible_items = 4; // Ê³ëüê³ñòü åëåìåíò³â, ÿê³ â³äîáðàæàþòüñÿ îäíî÷àñíî
+					const int max_visible_items = 4; 
 					const int total_items = static_cast<int>(drugs.size());
 
-					if (event.mouseWheelScroll.delta < 0) // Ïðîêðó÷óâàííÿ âíèç
+					if (event.mouseWheelScroll.delta < 0) 
 					{
 						if (start_index + max_visible_items < total_items)
 						{
 							start_index++;
 						}
 					}
-					else if (event.mouseWheelScroll.delta > 0) // Ïðîêðó÷óâàííÿ ââåðõ
+					else if (event.mouseWheelScroll.delta > 0) 
 					{
 						if (start_index > 0)
 						{
@@ -226,7 +287,7 @@ void StartMenuBar::processEvents()
 					}
 				}
 
-				scroll_clock.restart(); // Ïåðåçàïóñêàºìî òàéìåð
+				scroll_clock.restart(); 
 			}
 		}
 		else
@@ -257,10 +318,9 @@ void StartMenuBar::setData()
 	drugs.push_back(Drug(5, 15.0f, "Ibuprofen", "Anti-inflammatory", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ibuprofen.jpeg"));
 	drugs.push_back(Drug(8, 30.0f, "Aspirin", "Blood thinner", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\aspirin.jpeg"));
 	drugs.push_back(Drug(12, 25.0f, "Amoxicillin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\amoxicillin.jpeg"));
-	drugs.push_back(Drug(7, 18.0f, "Aiprofloxacin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ciprofloxacin.jpeg"));
-	drugs.push_back(Drug(3, 22.0f, "Aetformin", "Diabetes medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\metformin.jpeg"));
-	drugs.push_back(Drug(6, 28.0f, "Aimvastatin", "Cholesterol medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\simvastatin.jpeg"));
-	drugs.push_back(Drug(4, 12.0f, "Aisinopril", "Blood pressure medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\lisinopril.jpeg"));
+	drugs.push_back(Drug(7, 18.0f, "Ciprofloxacin", "Antibiotic", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\ciprofloxacin.jpeg"));
+	drugs.push_back(Drug(3, 22.0f, "Metformin", "Diabetes medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\metformin.jpeg"));
+	drugs.push_back(Drug(6, 28.0f, "Simvastatin", "Cholesterol medication", "C:\\programing\\NULP_OOP\\Database_CPP\\source\\simvastatin.jpeg"));
 }
 
 void StartMenuBar::render()
@@ -343,23 +403,6 @@ void StartMenuBar::render()
 				break; // Виходимо з циклу, якщо елементи більше не поміщаються у вікно
 			}
 		}
-	}
-
-	// Малюємо вікно додавання об'єкта, якщо активне
-	if (isAdd)
-	{
-		window.draw(add_object.getAddObjectBackground());
-		window.draw(add_object.getSubmitObjectBackgroundForTextSprite());
-		window.draw(add_object.getAddObjectBackgroundForText());
-		window.draw(add_object.getAddObjectBackgroundForText2());
-		window.draw(add_object.getAddObjectBackgroundForText3());
-		window.draw(add_object.getAddObjectBackgroundForText4());
-		window.draw(add_object.getAddObjectBackgroundForText5());
-		window.draw(add_object.getAddObjectText());
-		window.draw(add_object.getAddObjectText2());
-		window.draw(add_object.getAddObjectText3());
-		window.draw(add_object.getAddObjectText4());
-		window.draw(add_object.getAddObjectText5());
 	}
 
 	// Встановлюємо курсор
